@@ -8,17 +8,22 @@ namespace Tomato
 {
     enum TOMATO_PLANT_STATE
     {
+        None,
         Growing,
         Pause,
         Giveup,
         Reaped,
+        Rest,
+        Finish
     }
 
     class TomatoPlant
     {
         private readonly int TomatoPlantLifeSeconds = 1500;
+        private readonly int TomatoPlantRestSeconds = 300;
         private TomatoSeed seed;
         private int remainLifeSeconds;
+        private int remainRestSeconds;
         private TOMATO_PLANT_STATE state;
         public TOMATO_PLANT_STATE State
         {
@@ -35,6 +40,14 @@ namespace Tomato
                 return giveupRecord;
             }
         }
+        private TomatoFruit fruit;
+        public TomatoFruit Fruit
+        {
+            get
+            {
+                return fruit;
+            }
+        }
         private List<string> pasuseRecords;
         public List<string> PasuseRecords
         {
@@ -44,13 +57,16 @@ namespace Tomato
             }
         }
 
-        public event Action<double> OnRateChange;
+        public event Action<double> OnGrowingRateChange;
+        public event Action<double> OnRestRateChange;
         public event Action<TomatoFruit> OnReapFruit;
+        public event Action OnRestFinish;
 
         public TomatoPlant(TomatoSeed oriSeed)
         {
             seed = oriSeed;
             remainLifeSeconds = TomatoPlantLifeSeconds;
+            remainRestSeconds = TomatoPlantRestSeconds;
 
             giveupRecord = string.Empty;
             pasuseRecords = new List<string>();
@@ -58,24 +74,52 @@ namespace Tomato
 
         private void TimeLoseSecond()
         {
-            if (state != TOMATO_PLANT_STATE.Growing)
+            switch (state)
             {
-                return;
+                case TOMATO_PLANT_STATE.Growing:
+                    GrowingTimeLoseSecond();
+                    break;
+                case TOMATO_PLANT_STATE.Rest:
+                    RestTimeLoseSecond();
+                    break;
             }
+        }
+
+        private void GrowingTimeLoseSecond()
+        {
             remainLifeSeconds = Math.Max(0, remainLifeSeconds - 1);
-            OnRateChange(1 - remainLifeSeconds / (double)TomatoPlantLifeSeconds);
+            OnGrowingRateChange(1 - remainLifeSeconds / (double)TomatoPlantLifeSeconds);
             if (remainLifeSeconds <= 0)
             {
                 state = TOMATO_PLANT_STATE.Reaped;
+                
+                fruit = new TomatoFruit(this);
+                OnReapFruit?.Invoke(fruit);
+            }
+        }
 
+        private void RestTimeLoseSecond()
+        {
+            remainRestSeconds = Math.Max(0, remainRestSeconds - 1);
+            OnRestRateChange(1 - remainRestSeconds / (double)TomatoPlantRestSeconds);
+            if (remainRestSeconds <= 0)
+            {
                 TomatoMgr.OnTimeLoseSecond -= TimeLoseSecond;
-                OnReapFruit?.Invoke(new TomatoFruit(this));
+
+                state = TOMATO_PLANT_STATE.Finish;
+                OnRestFinish?.Invoke();
             }
         }
 
         public void StartGrow()
         {
+            state = TOMATO_PLANT_STATE.Growing;
             TomatoMgr.OnTimeLoseSecond += TimeLoseSecond;
+        }
+
+        public void StartRest()
+        {
+            state = TOMATO_PLANT_STATE.Rest;
         }
 
         public void Giveup(string giveupTip)

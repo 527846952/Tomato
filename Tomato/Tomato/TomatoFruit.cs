@@ -9,6 +9,19 @@ namespace Tomato
     class TomatoFruit
     {
         private TomatoPlant plant;
+        private string reapTip;
+        public string ReapTip
+        {
+            get
+            {
+                return reapTip;
+            }
+
+            set
+            {
+                reapTip = value;
+            }
+        }
 
         public TomatoFruit(TomatoPlant oriPlant)
         {

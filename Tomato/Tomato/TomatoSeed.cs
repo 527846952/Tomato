@@ -79,10 +79,19 @@ namespace Tomato
                 return state;
             }
         }
+        private List<TomatoPlant> allPlants;
+        public List<TomatoPlant> AllPlants
+        {
+            get
+            {
+                return allPlants;
+            }
+        }
 
         public TomatoSeed()
         {
             state = TOMATO_SEED_STATE.Ready;
+            allPlants = new List<TomatoPlant>();
         }
 
         public List<TomatoPlant> Sow()
@@ -97,6 +106,7 @@ namespace Tomato
             {
                 plants.Add(new TomatoPlant(this));
             }
+            allPlants.AddRange(plants);
             return plants;
         }
 
@@ -118,6 +128,7 @@ namespace Tomato
             {
                 plants.Add(new TomatoPlant(this));
             }
+            allPlants.AddRange(plants);
             return plants;
         }
 
