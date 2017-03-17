@@ -8,5 +8,11 @@ namespace Tomato
 {
     class TomatoFruit
     {
+        private TomatoPlant plant;
+
+        public TomatoFruit(TomatoPlant oriPlant)
+        {
+            plant = oriPlant;
+        }
     }
 }

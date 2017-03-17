@@ -17,7 +17,9 @@ namespace Tomato
     enum TOMATO_SEED_STATE
     {
         Ready,
-        Sowed
+        Sowed,
+        Excess,
+        Finish
     }
 
     class TomatoSeed
@@ -61,6 +63,14 @@ namespace Tomato
                 expectTomatoCount = value;
             }
         }
+        private int unexpectTomatoCount;
+        public int UnexpectTomatoCount
+        {
+            get
+            {
+                return unexpectTomatoCount;
+            }
+        }
         private TOMATO_SEED_STATE state;
         public TOMATO_SEED_STATE State
         {
@@ -75,14 +85,50 @@ namespace Tomato
             state = TOMATO_SEED_STATE.Ready;
         }
 
-        public TomatoPlant Sow()
+        public List<TomatoPlant> Sow()
         {
+            var plants = new List<TomatoPlant>();
             if (state != TOMATO_SEED_STATE.Ready)
             {
                 throw new Exception("TomatoSeed sow fail, state is " + state);
             }
             state = TOMATO_SEED_STATE.Sowed;
-            return new TomatoPlant(this);
+            for (int i = 0; i < expectTomatoCount; i++)
+            {
+                plants.Add(new TomatoPlant(this));
+            }
+            return plants;
+        }
+
+        public List<TomatoPlant> ExcessSow(int addCount)
+        {
+            if (addCount <= 0)
+            {
+                throw new Exception("TomatoSeed excessSow fail, addCount is " + addCount);
+            }
+            unexpectTomatoCount += addCount;
+            var plants = new List<TomatoPlant>();
+            if (state != TOMATO_SEED_STATE.Sowed ||
+                state != TOMATO_SEED_STATE.Excess)
+            {
+                throw new Exception("TomatoSeed excessSow fail, state is " + state);
+            }
+            state = TOMATO_SEED_STATE.Excess;
+            for (int i = 0; i < addCount; i++)
+            {
+                plants.Add(new TomatoPlant(this));
+            }
+            return plants;
+        }
+
+        public void Finish()
+        {
+            if (state != TOMATO_SEED_STATE.Sowed ||
+                state != TOMATO_SEED_STATE.Excess)
+            {
+                throw new Exception("TomatoSeed finish fail, state is " + state);
+            }
+            state = TOMATO_SEED_STATE.Finish;
         }
     }
 }

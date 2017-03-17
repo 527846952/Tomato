@@ -27,17 +27,36 @@ namespace Tomato
                 return state;
             }
         }
+        private string giveupRecord;
+        public string GiveupRecord
+        {
+            get
+            {
+                return giveupRecord;
+            }
+        }
+        private List<string> pasuseRecords;
+        public List<string> PasuseRecords
+        {
+            get
+            {
+                return pasuseRecords;
+            }
+        }
 
         public event Action<double> OnRateChange;
-        public event Action OnReapFruit;
+        public event Action<TomatoFruit> OnReapFruit;
 
         public TomatoPlant(TomatoSeed oriSeed)
         {
             seed = oriSeed;
             remainLifeSeconds = TomatoPlantLifeSeconds;
+
+            giveupRecord = string.Empty;
+            pasuseRecords = new List<string>();
         }
 
-        public void TimeLoseSecond()
+        private void TimeLoseSecond()
         {
             if (state != TOMATO_PLANT_STATE.Growing)
             {
@@ -48,8 +67,15 @@ namespace Tomato
             if (remainLifeSeconds <= 0)
             {
                 state = TOMATO_PLANT_STATE.Reaped;
-                OnReapFruit?.Invoke();
+
+                TomatoMgr.OnTimeLoseSecond -= TimeLoseSecond;
+                OnReapFruit?.Invoke(new TomatoFruit(this));
             }
+        }
+
+        public void StartGrow()
+        {
+            TomatoMgr.OnTimeLoseSecond += TimeLoseSecond;
         }
 
         public void Giveup(string giveupTip)
@@ -60,6 +86,14 @@ namespace Tomato
                 throw new Exception("TomatoPlant giveup fail, state is " + state);
             }
             state = TOMATO_PLANT_STATE.Giveup;
+
+            TomatoMgr.OnTimeLoseSecond -= TimeLoseSecond;
+
+            if (string.IsNullOrEmpty(giveupTip))
+            {
+                throw new Exception("TomatoPlant giveup unexpect, giveupTip is empty");
+            }
+            giveupRecord = giveupTip;
         }
 
         public void Pause(string pauseTip)
@@ -69,6 +103,12 @@ namespace Tomato
                 throw new Exception("TomatoPlant pause fail, state is " + state);
             }
             state = TOMATO_PLANT_STATE.Pause;
+
+            if (string.IsNullOrEmpty(pauseTip))
+            {
+                throw new Exception("TomatoPlant pause unexpect, pauseTip is empty");
+            }
+            pasuseRecords.Add(pauseTip);
         }
 
         public void Replay()

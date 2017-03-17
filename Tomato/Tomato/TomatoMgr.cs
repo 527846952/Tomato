@@ -8,5 +8,6 @@ namespace Tomato
 {
     class TomatoMgr
     {
+        public static event Action OnTimeLoseSecond;
     }
 }
