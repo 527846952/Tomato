@@ -87,14 +87,60 @@ namespace Tomato
                 return allPlants;
             }
         }
+        private int curGrowPlantIdx;
+        public double Rate
+        {
+            get
+            {
+                if (allPlants.Count <= 0)
+                {
+                    return 0;
+                }
+                var sumRate = 0d;
+                for (int i = 0; i < allPlants.Count; i++)
+                {
+                    sumRate += allPlants[i].Rate;
+                }
+                return sumRate / allPlants.Count;
+            }
+        }
 
         public TomatoSeed()
         {
+            curGrowPlantIdx = -1;
             state = TOMATO_SEED_STATE.Ready;
             allPlants = new List<TomatoPlant>();
         }
 
-        public List<TomatoPlant> Sow()
+        private int GetMinPlantIdx()
+        {
+            for (int i = 0; i < allPlants.Count; i++)
+            {
+                if (allPlants[i].State < TOMATO_PLANT_STATE.Finish)
+                {
+                    return i;
+                }
+            }
+            return allPlants.Count - 1;
+        }
+
+        private void OnPlantFinish(TomatoPlant plant)
+        {
+
+        }
+
+        public void GrowNextPlant()
+        {
+            var minPlantIdx = GetMinPlantIdx();
+            if (minPlantIdx < 0 || curGrowPlantIdx == minPlantIdx)
+            {
+                return;
+            }
+            curGrowPlantIdx = minPlantIdx;
+            allPlants[curGrowPlantIdx].StartGrow();
+        }
+
+        public void Sow()
         {
             var plants = new List<TomatoPlant>();
             if (state != TOMATO_SEED_STATE.Ready)
@@ -104,13 +150,16 @@ namespace Tomato
             state = TOMATO_SEED_STATE.Sowed;
             for (int i = 0; i < expectTomatoCount; i++)
             {
-                plants.Add(new TomatoPlant(this));
+                var plant = new TomatoPlant(this);
+                plant.OnFinish += OnPlantFinish;
+                plants.Add(plant);
             }
             allPlants.AddRange(plants);
-            return plants;
+
+            GrowNextPlant();
         }
 
-        public List<TomatoPlant> ExcessSow(int addCount)
+        public void ExcessSow(int addCount)
         {
             if (addCount <= 0)
             {
@@ -126,10 +175,13 @@ namespace Tomato
             state = TOMATO_SEED_STATE.Excess;
             for (int i = 0; i < addCount; i++)
             {
-                plants.Add(new TomatoPlant(this));
+                var plant = new TomatoPlant(this);
+                plant.OnFinish += OnPlantFinish;
+                plants.Add(plant);
             }
             allPlants.AddRange(plants);
-            return plants;
+
+            GrowNextPlant();
         }
 
         public void Finish()
