@@ -105,6 +105,9 @@ namespace Tomato
             }
         }
 
+        public event Action<TomatoPlant> OnPlantFinish;
+        public event Action<TomatoSeed> OnFinishAllPlant;
+
         public TomatoSeed()
         {
             curGrowPlantIdx = -1;
@@ -124,9 +127,17 @@ namespace Tomato
             return allPlants.Count - 1;
         }
 
-        private void OnPlantFinish(TomatoPlant plant)
+        private void OnSelfPlantFinish(TomatoPlant plant)
         {
-
+            var minPlantIdx = GetMinPlantIdx();
+            if (minPlantIdx < 0 && curGrowPlantIdx == allPlants.Count - 1)
+            {
+                OnFinishAllPlant(this);
+            }
+            else
+            {
+                OnPlantFinish?.Invoke(plant);
+            }
         }
 
         public void GrowNextPlant()
@@ -151,7 +162,7 @@ namespace Tomato
             for (int i = 0; i < expectTomatoCount; i++)
             {
                 var plant = new TomatoPlant(this);
-                plant.OnFinish += OnPlantFinish;
+                plant.OnFinish += OnSelfPlantFinish;
                 plants.Add(plant);
             }
             allPlants.AddRange(plants);
@@ -176,7 +187,7 @@ namespace Tomato
             for (int i = 0; i < addCount; i++)
             {
                 var plant = new TomatoPlant(this);
-                plant.OnFinish += OnPlantFinish;
+                plant.OnFinish += OnSelfPlantFinish;
                 plants.Add(plant);
             }
             allPlants.AddRange(plants);
