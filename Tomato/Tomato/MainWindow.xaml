@@ -5,36 +5,67 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Tomato"
         mc:Ignorable="d"
-        Title="番茄计划" Height="640" Width="800">
+        Title="番茄计划" Height="640" Width="800" ResizeMode="NoResize">
     <Canvas x:Name="rootCanvas" Margin="0">
-        <Button x:Name="goalsView" Content="Goals" Width="63" HorizontalAlignment="Center" VerticalAlignment="Center" Height="204"/>
-        <Button x:Name="todayView" Content="Today" Width="63" HorizontalAlignment="Center" VerticalAlignment="Center" Height="204" Canvas.Top="204"/>
-        <Button x:Name="fruitsView" Content="Fruits" Width="63" HorizontalAlignment="Center" VerticalAlignment="Center" Height="204" Canvas.Top="408"/>
-        <Canvas x:Name="goalsCanvas" Canvas.Left="63" Width="732" HorizontalAlignment="Center" Height="612">
-            <ListBox x:Name="goalsList" Height="612" Width="280">
-                <ListBoxItem Content="Goal 1"/>
-                <ListBoxItem Content="Goal 2"/>
-                <ListBoxItem Content="Goal 3"/>
-            </ListBox>
-            <Button x:Name="showEditGoal" Content="Add" Canvas.Left="472" Canvas.Top="256" Width="76"/>
-            <Canvas x:Name="editGoal" Height="612" Canvas.Left="280" Width="447">
-                <Label x:Name="labTitle" Content="Title" Canvas.Left="10" Canvas.Top="38"/>
-                <TextBox x:Name="titleEdit" Height="22" Canvas.Left="84" TextWrapping="Wrap" Text="TextBox" Canvas.Top="42" Width="340" Background="#FFE4E4E4"/>
-                <Label x:Name="labDetail" Content="Detail" Canvas.Left="10" Canvas.Top="89"/>
-                <TextBox x:Name="detailEdit" Height="254" Canvas.Left="84" TextWrapping="Wrap" Text="TextBox" Canvas.Top="91" Width="340" Background="#FFE4E4E4"/>
-                <Label x:Name="labCount" Content="Tomatos" Canvas.Left="10" Canvas.Top="374"/>
-                <Slider x:Name="countEdit" Canvas.Left="84" Canvas.Top="380" Height="20" Width="276" Maximum="16" SmallChange="1"/>
-                <Label x:Name="labTargetCount" Content="1" Canvas.Left="384" Canvas.Top="374"/>
-                <Label x:Name="labPriority" Content="Priority" Canvas.Left="10" Canvas.Top="428"/>
-                <ComboBox x:Name="priorityEdit" Canvas.Left="84" Canvas.Top="432" Width="142" SelectedIndex="3">
-                    <ComboBoxItem Content="S"/>
-                    <ComboBoxItem Content="A"/>
-                    <ComboBoxItem Content="B"/>
-                    <ComboBoxItem Content="C"/>
-                    <ComboBoxItem Content="D"/>
-                </ComboBox>
-                <Button x:Name="addGoal" Content="Add Goal" Canvas.Left="211" Canvas.Top="508" Width="75"/>
-            </Canvas>
-        </Canvas>
+        <TabControl x:Name="tabControl" Height="612" Canvas.Left="0" Canvas.Top="0" TabStripPlacement="Left" Width="795">
+            <TabItem Header="Goals" Height="190">
+                <Grid Background="White">
+                    <ListBox x:Name="goalsList" HorizontalAlignment="Left" VerticalAlignment="Top" Height="606" Width="275">
+                        <ListBox.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Delete"/>
+                                <MenuItem Header="Today Plan"/>
+                            </ContextMenu>
+                        </ListBox.ContextMenu>
+                        <ListBoxItem Content="Goal 1"/>
+                        <ListBoxItem Content="Goal 2"/>
+                        <ListBoxItem Content="Goal 3"/>
+                    </ListBox>
+                    <Button x:Name="showEditGoal" Content="Add" Margin="484,294,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="40" Height="20"/>
+                    <Canvas x:Name="editGoal" Margin="280,0,-727,-612">
+                        <Label x:Name="labTitle" Content="Title" Canvas.Left="10" Canvas.Top="38"/>
+                        <TextBox x:Name="titleEdit" Height="22" Canvas.Left="84" TextWrapping="Wrap" Text="TextBox" Canvas.Top="42" Width="340" Background="#FFE4E4E4"/>
+                        <Label x:Name="labDetail" Content="Detail" Canvas.Left="10" Canvas.Top="89"/>
+                        <TextBox x:Name="detailEdit" Height="254" Canvas.Left="84" TextWrapping="Wrap" Text="TextBox" Canvas.Top="91" Width="340" Background="#FFE4E4E4"/>
+                        <Label x:Name="labCount" Content="Tomatos" Canvas.Left="10" Canvas.Top="374"/>
+                        <Slider x:Name="countEdit" Canvas.Left="84" Canvas.Top="380" Height="20" Width="276" Maximum="16" SmallChange="1"/>
+                        <Label x:Name="labTargetCount" Content="1" Canvas.Left="384" Canvas.Top="374"/>
+                        <Label x:Name="labPriority" Content="Priority" Canvas.Left="10" Canvas.Top="428"/>
+                        <ComboBox x:Name="priorityEdit" Canvas.Left="84" Canvas.Top="432" Width="142" SelectedIndex="3">
+                            <ComboBoxItem Content="S"/>
+                            <ComboBoxItem Content="A"/>
+                            <ComboBoxItem Content="B"/>
+                            <ComboBoxItem Content="C"/>
+                            <ComboBoxItem Content="D"/>
+                        </ComboBox>
+                        <Button x:Name="addGoal" Content="Add Goal" Canvas.Left="211" Canvas.Top="508" Width="75"/>
+                    </Canvas>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Today" Height="190">
+                <Grid Background="White">
+                    <ListBox x:Name="planList" HorizontalAlignment="Left" VerticalAlignment="Top" Height="606" Width="275">
+                        <ListBox.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Giveup"/>
+                                <MenuItem Header="Leave Today"/>
+                            </ContextMenu>
+                        </ListBox.ContextMenu>
+                        <ListBoxItem Content="Plan 1"/>
+                        <ListBoxItem Content="Plan 2"/>
+                        <ListBoxItem Content="Plan 3"/>
+                    </ListBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Fruits" Margin="-2,-2,0,-2" Height="190">
+                <Grid Background="White">
+                    <ListBox x:Name="fruitsList" HorizontalAlignment="Left" VerticalAlignment="Top" Height="606" Width="275">
+                        <ListBoxItem Content="Fruit 1"/>
+                        <ListBoxItem Content="Fruit 2"/>
+                        <ListBoxItem Content="Fruit 3"/>
+                    </ListBox>
+                </Grid>
+            </TabItem>
+        </TabControl>
     </Canvas>
 </Window>
