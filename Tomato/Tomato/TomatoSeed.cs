@@ -71,6 +71,14 @@ namespace Tomato
                 return unexpectTomatoCount;
             }
         }
+        private DateTime createTime;
+        public DateTime CreateTime
+        {
+            get
+            {
+                return createTime;
+            }
+        }
         private TOMATO_SEED_STATE state;
         public TOMATO_SEED_STATE State
         {
@@ -79,6 +87,7 @@ namespace Tomato
                 return state;
             }
         }
+
         private List<TomatoPlant> allPlants;
         public List<TomatoPlant> AllPlants
         {
@@ -104,6 +113,19 @@ namespace Tomato
                 return sumRate / allPlants.Count;
             }
         }
+        private TOMATO_PRI priority;
+        public TOMATO_PRI Priority
+        {
+            get
+            {
+                return priority;
+            }
+
+            set
+            {
+                priority = value;
+            }
+        }
 
         public event Action<TomatoPlant> OnPlantFinish;
         public event Action<TomatoSeed> OnFinishAllPlant;
@@ -113,6 +135,8 @@ namespace Tomato
             curGrowPlantIdx = -1;
             state = TOMATO_SEED_STATE.Ready;
             allPlants = new List<TomatoPlant>();
+
+            createTime = DateTime.Now;
         }
 
         private int GetMinPlantIdx()
@@ -132,7 +156,7 @@ namespace Tomato
             var minPlantIdx = GetMinPlantIdx();
             if (minPlantIdx < 0 && curGrowPlantIdx == allPlants.Count - 1)
             {
-                OnFinishAllPlant(this);
+                OnFinishAllPlant?.Invoke(this);
             }
             else
             {
