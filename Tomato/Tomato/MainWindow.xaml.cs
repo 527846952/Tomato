@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace Tomato
 {
@@ -20,9 +21,39 @@ namespace Tomato
     /// </summary>
     public partial class MainWindow : Window
     {
+        private DispatcherTimer timerDriver;
+        private TomatoMgr tomatoMgr;
+
         public MainWindow()
         {
             InitializeComponent();
+
+            InitTomotoMgr();
+            InitTimer();
+        }
+
+        private void InitTomotoMgr()
+        {
+            tomatoMgr = new TomatoMgr();
+        }
+
+        private void InitTimer()
+        {
+            timerDriver = new DispatcherTimer();
+            timerDriver.Interval = TimeSpan.FromMilliseconds(1000);
+            timerDriver.Tick += TimerDriver_Tick;
+            timerDriver.Start();
+        }
+
+        private void TimerDriver_Tick(object sender, EventArgs e)
+        {
+            TomatoMgr.TimeLoseSecond();
+        }
+
+        private void addGoal_Click(object sender, RoutedEventArgs e)
+        {
+            var plantWindow = new TomatoPlantWindow();
+            plantWindow.Show();
         }
     }
 }

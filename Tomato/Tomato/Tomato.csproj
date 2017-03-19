@@ -65,6 +65,7 @@
       <DependentUpon>TomatoPlantWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="TomatoSeed.cs" />
+    <Compile Include="Win32.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

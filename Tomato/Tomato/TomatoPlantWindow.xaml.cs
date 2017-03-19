@@ -28,5 +28,23 @@ namespace Tomato
         {
             this.Close();
         }
+        
+        private void Window_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                base.DragMove();
+            }
+        }
+
+        private void Window_MouseEnter(object sender, MouseEventArgs e)
+        {
+            contentCanvas.Visibility = Visibility.Visible;
+        }
+
+        private void Window_MouseLeave(object sender, MouseEventArgs e)
+        {
+            contentCanvas.Visibility = Visibility.Hidden;
+        }
     }
 }

@@ -38,7 +38,7 @@
                             <ComboBoxItem Content="C"/>
                             <ComboBoxItem Content="D"/>
                         </ComboBox>
-                        <Button x:Name="addGoal" Content="Add Goal" Canvas.Left="211" Canvas.Top="508" Width="75"/>
+                        <Button x:Name="addGoal" Content="Add Goal" Canvas.Left="211" Canvas.Top="508" Width="75" Click="addGoal_Click"/>
                     </Canvas>
                 </Grid>
             </TabItem>

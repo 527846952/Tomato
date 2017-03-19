@@ -9,5 +9,10 @@ namespace Tomato
     class TomatoMgr
     {
         public static event Action OnTimeLoseSecond;
+
+        public static void TimeLoseSecond()
+        {
+            OnTimeLoseSecond?.Invoke();
+        }
     }
 }

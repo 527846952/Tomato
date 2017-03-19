@@ -4,9 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Tomato"
-        mc:Ignorable="d" Height="180" Width="360" Topmost="True" ResizeMode="NoResize" WindowStyle="None" ShowInTaskbar="False" Background="Transparent">
+        mc:Ignorable="d" Height="180" Width="360" Topmost="True" ResizeMode="NoResize" WindowStyle="None" ShowInTaskbar="False" MouseMove="Window_MouseMove" HorizontalAlignment="Center" VerticalAlignment="Center" Left="0" Top="0" WindowStartupLocation="CenterScreen" MouseEnter="Window_MouseEnter" MouseLeave="Window_MouseLeave" Background="{x:Null}" AllowsTransparency="True" Visibility="Visible">
     <Grid x:Name="rootGrid">
-        <Canvas x:Name="contentCanvas" Margin="0" Background="#FF959595">
+        <Canvas x:Name="contentCanvas" Margin="0" Visibility="Hidden">
+            <Canvas.Background>
+                <SolidColorBrush Color="#FFB6B6B6"/>
+            </Canvas.Background>
             <Button x:Name="giveupPlant" Content="X" Canvas.Left="327" Canvas.Top="10" Width="23" Click="giveupPlant_Click"/>
             <Button x:Name="pausePlant" Content="||" Canvas.Left="162" Canvas.Top="145" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" Width="40"/>
             <Label x:Name="plantTitle" Content="这是一个测试标题" Canvas.Left="10" Canvas.Top="7" Width="312" Foreground="White"/>
