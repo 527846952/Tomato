@@ -53,7 +53,23 @@ namespace Tomato
         private void addGoal_Click(object sender, RoutedEventArgs e)
         {
             var plantWindow = new TomatoPlantWindow();
+            var seed = new TomatoSeed();
+            seed.Title = titleEdit.Text; ;
+            seed.Detail = detailEdit.Text;
+            seed.ExpectTomatoCount = (int)countEdit.Value;
+            seed.Priority = (TOMATO_PRI)priorityEdit.SelectedIndex;
+            seed.Sow();
+            plantWindow.SetTomatoPlant(seed.AllPlants[seed.CurGrowPlantIdx]);
             plantWindow.Show();
+        }
+
+        private void countEdit_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (labTargetCount == null)
+            {
+                return;
+            }
+            labTargetCount.Content = (int)countEdit.Value;
         }
     }
 }

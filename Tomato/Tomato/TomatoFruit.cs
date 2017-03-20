@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Tomato
 {
-    class TomatoFruit
+    public class TomatoFruit
     {
         private TomatoPlant plant;
         private string reapTip;

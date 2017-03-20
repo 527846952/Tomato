@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Tomato
 {
-    enum TOMATO_PRI
+    public enum TOMATO_PRI
     {
         S,
         A,
@@ -14,7 +14,7 @@ namespace Tomato
         C,
         D,
     }
-    enum TOMATO_SEED_STATE
+    public enum TOMATO_SEED_STATE
     {
         Ready,
         Sowed,
@@ -22,7 +22,7 @@ namespace Tomato
         Finish
     }
 
-    class TomatoSeed
+    public class TomatoSeed
     {
         private string title;
         public string Title
@@ -97,6 +97,13 @@ namespace Tomato
             }
         }
         private int curGrowPlantIdx;
+        public int CurGrowPlantIdx
+        {
+            get
+            {
+                return curGrowPlantIdx;
+            }
+        }
         public double Rate
         {
             get

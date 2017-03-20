@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Tomato
 {
-    class HarvestNotebook
+    public class HarvestNotebook
     {
         private List<TomatoFruit> fruits;
         public List<TomatoFruit> Fruits

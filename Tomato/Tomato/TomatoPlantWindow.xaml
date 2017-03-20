@@ -4,17 +4,76 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Tomato"
-        mc:Ignorable="d" Height="180" Width="360" Topmost="True" ResizeMode="NoResize" WindowStyle="None" ShowInTaskbar="False" MouseMove="Window_MouseMove" HorizontalAlignment="Center" VerticalAlignment="Center" Left="0" Top="0" WindowStartupLocation="CenterScreen" MouseEnter="Window_MouseEnter" MouseLeave="Window_MouseLeave" Background="{x:Null}" AllowsTransparency="True" Visibility="Visible">
+        mc:Ignorable="d" Height="138" Width="360" Topmost="True" ResizeMode="NoResize" WindowStyle="None" ShowInTaskbar="False" MouseMove="Window_MouseMove" HorizontalAlignment="Center" VerticalAlignment="Center" Left="0" Top="0" WindowStartupLocation="CenterScreen" MouseEnter="Window_MouseEnter" MouseLeave="Window_MouseLeave" Background="{x:Null}" AllowsTransparency="True" Visibility="Visible">
+    <Window.Resources>
+        <Style x:Key="FocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD"/>
+        <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFC4E5F6"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B"/>
+        <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
+        <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
+        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
+        <Style x:Key="CircleButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true" CornerRadius="40">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
     <Grid x:Name="rootGrid">
-        <Canvas x:Name="contentCanvas" Margin="0" Visibility="Hidden">
-            <Canvas.Background>
-                <SolidColorBrush Color="#FFB6B6B6"/>
-            </Canvas.Background>
-            <Button x:Name="giveupPlant" Content="X" Canvas.Left="327" Canvas.Top="10" Width="23" Click="giveupPlant_Click"/>
-            <Button x:Name="pausePlant" Content="||" Canvas.Left="162" Canvas.Top="145" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" Width="40"/>
-            <Label x:Name="plantTitle" Content="这是一个测试标题" Canvas.Left="10" Canvas.Top="7" Width="312" Foreground="White"/>
-        </Canvas>
-        <Label x:Name="remainTime" Content="25:00" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" Background="#00000000" FontSize="48" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="#FFFFB400"/>
+        <Border x:Name="contentBorder" BorderBrush="Black" BorderThickness="1" Margin="0" Background="#FFAFAFAF" CornerRadius="5" Visibility="Hidden">
+            <Canvas x:Name="contentCanvas" Margin="0,0,-2,-2">
+                <Button x:Name="giveupPlant" Content="X" Canvas.Left="328" Canvas.Top="7" Width="22" Click="giveupPlant_Click" Style="{DynamicResource CircleButtonStyle}" Height="22" Background="White"/>
+                <Button x:Name="pausePlant" Content="||" Canvas.Left="165" Canvas.Top="99" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" Width="30" Background="White" Style="{DynamicResource CircleButtonStyle}" Height="30" Click="pausePlant_Click"/>
+                <Button x:Name="replayPlant" Content="▲" Canvas.Left="165" Canvas.Top="99" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" Width="30" Background="White" Style="{DynamicResource CircleButtonStyle}" Height="30" Click="replayPlant_Click" Visibility="Hidden"/>
+                <Label x:Name="plantTitle" Content="这是一个测试标题" Canvas.Left="10" Canvas.Top="7" Width="312" Foreground="White"/>
+            </Canvas>
+        </Border>
+        <Border BorderBrush="#4C909090" BorderThickness="1" HorizontalAlignment="Left" Height="60" Margin="113,32,0,0" VerticalAlignment="Top" Width="137" Background="#4CFFFFFF" CornerRadius="10">
+            <Label x:Name="remainTime" Content="25:00" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" Background="#00000000" FontSize="48" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="#FFFFB400" Padding="0"/>
+        </Border>
 
     </Grid>
 </Window>

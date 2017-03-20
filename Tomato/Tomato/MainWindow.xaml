@@ -28,8 +28,8 @@
                         <Label x:Name="labDetail" Content="Detail" Canvas.Left="10" Canvas.Top="89"/>
                         <TextBox x:Name="detailEdit" Height="254" Canvas.Left="84" TextWrapping="Wrap" Text="TextBox" Canvas.Top="91" Width="340" Background="#FFE4E4E4"/>
                         <Label x:Name="labCount" Content="Tomatos" Canvas.Left="10" Canvas.Top="374"/>
-                        <Slider x:Name="countEdit" Canvas.Left="84" Canvas.Top="380" Height="20" Width="276" Maximum="16" SmallChange="1"/>
-                        <Label x:Name="labTargetCount" Content="1" Canvas.Left="384" Canvas.Top="374"/>
+                        <Slider x:Name="countEdit" Canvas.Left="84" Canvas.Top="380" Height="20" Width="276" Maximum="16" SmallChange="1" Value="1" Minimum="1" ValueChanged="countEdit_ValueChanged"/>
+                        <Label x:Name="labTargetCount" Canvas.Left="384" Canvas.Top="374" Content="1"/>
                         <Label x:Name="labPriority" Content="Priority" Canvas.Left="10" Canvas.Top="428"/>
                         <ComboBox x:Name="priorityEdit" Canvas.Left="84" Canvas.Top="432" Width="142" SelectedIndex="3">
                             <ComboBoxItem Content="S"/>

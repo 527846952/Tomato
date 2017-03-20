@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Tomato
 {
-    enum TOMATO_PLANT_STATE
+    public enum TOMATO_PLANT_STATE
     {
         None,
         Growing,
@@ -17,13 +17,34 @@ namespace Tomato
         Finish
     }
 
-    class TomatoPlant
+    public class TomatoPlant
     {
         private readonly int TomatoPlantLifeSeconds = 1500;
         private readonly int TomatoPlantRestSeconds = 300;
         private TomatoSeed seed;
+        public TomatoSeed Seed
+        {
+            get
+            {
+                return seed;
+            }
+        }
         private int remainLifeSeconds;
+        public int RemainLifeSeconds
+        {
+            get
+            {
+                return remainLifeSeconds;
+            }
+        }
         private int remainRestSeconds;
+        public int RemainRestSeconds
+        {
+            get
+            {
+                return remainRestSeconds;
+            }
+        }
         private TOMATO_PLANT_STATE state;
         public TOMATO_PLANT_STATE State
         {
@@ -79,7 +100,7 @@ namespace Tomato
                 return pasuseRecords;
             }
         }
-
+        
         public event Action<double> OnGrowingRateChange;
         public event Action<double> OnRestRateChange;
         public event Action<TomatoFruit> OnReapFruit;
