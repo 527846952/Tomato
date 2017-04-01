@@ -120,6 +120,12 @@
   <data name="MainWindowTitle" xml:space="preserve">
     <value>番茄计划</value>
   </data>
+  <data name="QueryStartRestTipCaption" xml:space="preserve">
+    <value>劳逸结合会更有效率哟</value>
+  </data>
+  <data name="QueryStartRestTipContent" xml:space="preserve">
+    <value>是否开始休息？</value>
+  </data>
   <data name="TomatoPlantWindowTitle" xml:space="preserve">
     <value>番茄生长中</value>
   </data>

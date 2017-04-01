@@ -19,8 +19,8 @@ namespace Tomato
 
     public class TomatoPlant
     {
-        private readonly int TomatoPlantLifeSeconds = 1500;
-        private readonly int TomatoPlantRestSeconds = 300;
+        private readonly int TomatoPlantLifeSeconds = 15;
+        private readonly int TomatoPlantRestSeconds = 3;
         private TomatoSeed seed;
         public TomatoSeed Seed
         {

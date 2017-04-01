@@ -20,6 +20,9 @@ namespace Tomato
     public partial class TomatoPlantWindow : Window
     {
         private TomatoPlant curPlant;
+        private SolidColorBrush growingTimeColor = new SolidColorBrush(Color.FromArgb(255, 255, 180, 0));
+        private SolidColorBrush restingTimeColor = new SolidColorBrush(Color.FromArgb(255, 0, 180, 0));
+
         public TomatoPlantWindow()
         {
             InitializeComponent();
@@ -41,25 +44,57 @@ namespace Tomato
             curPlant.OnRestRateChange += CurPlant_OnRestRateChange;
             curPlant.OnFinish += CurPlant_OnFinish;
         }
+
+        private void QueryStartRest()
+        {
+            if (curPlant == null)
+            {
+                throw new Exception("QueryStartRest fail, curPlant is nil.");
+            }
+            var result = MessageBox.Show(Properties.Resources.QueryStartRestTipContent, Properties.Resources.QueryStartRestTipCaption,
+                MessageBoxButton.YesNo);
+            if (result == MessageBoxResult.Yes)
+            {
+                curPlant.StartRest();
+            }
+        }
         
         private void CurPlant_OnGrowingRateChange(double rate)
         {
+            if (curPlant == null)
+            {
+                throw new Exception("CurPlant_OnGrowingRateChange fail, curPlant is nil.");
+            }
+
+            remainTime.Foreground = growingTimeColor;
             remainTime.Content = (curPlant.RemainLifeSeconds / 60) + ":" + (curPlant.RemainLifeSeconds % 60);
         }
 
         private void CurPlant_OnReapFruit(TomatoFruit fruit)
         {
-            throw new NotImplementedException();
+            if (curPlant == null)
+            {
+                throw new Exception("CurPlant_OnReapFruit fail, curPlant is nil.");
+            }
+            QueryStartRest();
         }
 
         private void CurPlant_OnRestRateChange(double rate)
         {
+            if (curPlant == null)
+            {
+                throw new Exception("CurPlant_OnRestRateChange fail, curPlant is nil.");
+            }
+            remainTime.Foreground = restingTimeColor;
             remainTime.Content = (curPlant.RemainRestSeconds / 60) + ":" + (curPlant.RemainRestSeconds % 60);
         }
 
         private void CurPlant_OnFinish(TomatoPlant plant)
         {
-            throw new NotImplementedException();
+            if (curPlant == null)
+            {
+                throw new Exception("CurPlant_OnFinish fail, curPlant is nil.");
+            }
         }
 
         private void pausePlant_Click(object sender, RoutedEventArgs e)
