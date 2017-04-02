@@ -117,8 +117,32 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="GiveupTipCaption" xml:space="preserve">
+    <value>放弃确认</value>
+  </data>
+  <data name="GiveupTipContent" xml:space="preserve">
+    <value>要丢弃这次番茄时间吗？</value>
+  </data>
+  <data name="GiveupTipInputCaption" xml:space="preserve">
+    <value>原因反馈</value>
+  </data>
+  <data name="GiveupTipInputContent" xml:space="preserve">
+    <value>这次放弃的原因是？</value>
+  </data>
   <data name="MainWindowTitle" xml:space="preserve">
     <value>番茄计划</value>
+  </data>
+  <data name="PausePlantTipCaption" xml:space="preserve">
+    <value>暂停确认</value>
+  </data>
+  <data name="PausePlantTipContent" xml:space="preserve">
+    <value>暂停的原因是什么？</value>
+  </data>
+  <data name="PlantFinishTipCation" xml:space="preserve">
+    <value>继续加油</value>
+  </data>
+  <data name="PlantFinishTipContent" xml:space="preserve">
+    <value>还有计划的番茄哟，是否继续？</value>
   </data>
   <data name="QueryStartRestTipCaption" xml:space="preserve">
     <value>劳逸结合会更有效率哟</value>

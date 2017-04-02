@@ -24,6 +24,7 @@ namespace Tomato
 
     public class TomatoSeed
     {
+        public static readonly int MAX_TOMATO_PLANT_COUNT = 16;
         private string title;
         public string Title
         {
@@ -71,6 +72,13 @@ namespace Tomato
                 return unexpectTomatoCount;
             }
         }
+        public int SumTomatoCount
+        {
+            get
+            {
+                return expectTomatoCount + unexpectTomatoCount;
+            }
+        }
         private DateTime createTime;
         public DateTime CreateTime
         {
@@ -102,6 +110,13 @@ namespace Tomato
             get
             {
                 return curGrowPlantIdx;
+            }
+        }
+        public int RemainTomatoCount
+        {
+            get
+            {
+                return expectTomatoCount + unexpectTomatoCount - curGrowPlantIdx;
             }
         }
         public double Rate
@@ -171,15 +186,16 @@ namespace Tomato
             }
         }
 
-        public void GrowNextPlant()
+        public TomatoPlant SelectNextPlant()
         {
             var minPlantIdx = GetMinPlantIdx();
-            if (minPlantIdx < 0 || curGrowPlantIdx == minPlantIdx)
+            if (minPlantIdx < 0)
             {
-                return;
+                return null;
             }
             curGrowPlantIdx = minPlantIdx;
-            allPlants[curGrowPlantIdx].StartGrow();
+            var minPlant = allPlants[curGrowPlantIdx];
+            return minPlant;
         }
 
         public void Sow()
@@ -198,7 +214,8 @@ namespace Tomato
             }
             allPlants.AddRange(plants);
 
-            GrowNextPlant();
+            var curPlant = SelectNextPlant();
+            curPlant.StartGrow();
         }
 
         public void ExcessSow(int addCount)
@@ -223,7 +240,8 @@ namespace Tomato
             }
             allPlants.AddRange(plants);
 
-            GrowNextPlant();
+            var curPlant = SelectNextPlant();
+            curPlant.StartGrow();
         }
 
         public void Finish()

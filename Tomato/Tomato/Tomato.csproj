@@ -57,6 +57,9 @@
     </ApplicationDefinition>
     <Compile Include="GoalNotebook.cs" />
     <Compile Include="HarvestNotebook.cs" />
+    <Compile Include="InputMessageBox.xaml.cs">
+      <DependentUpon>InputMessageBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TodayNotebook.cs" />
     <Compile Include="TomatoFruit.cs" />
     <Compile Include="TomatoMgr.cs" />
@@ -66,6 +69,10 @@
     </Compile>
     <Compile Include="TomatoSeed.cs" />
     <Compile Include="Win32.cs" />
+    <Page Include="InputMessageBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

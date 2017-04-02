@@ -8,11 +8,15 @@ namespace Tomato
 {
     class TomatoMgr
     {
+        public static bool TomatoMgrPuase = false;
         public static event Action OnTimeLoseSecond;
 
         public static void TimeLoseSecond()
         {
-            OnTimeLoseSecond?.Invoke();
+            if (!TomatoMgrPuase)
+            {
+                OnTimeLoseSecond?.Invoke(); 
+            }
         }
     }
 }

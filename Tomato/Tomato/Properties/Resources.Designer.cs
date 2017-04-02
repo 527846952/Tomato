@@ -61,11 +61,83 @@ namespace Tomato.Properties {
         }
         
         /// <summary>
+        ///   查找类似 放弃确认 的本地化字符串。
+        /// </summary>
+        public static string GiveupTipCaption {
+            get {
+                return ResourceManager.GetString("GiveupTipCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 要丢弃这次番茄时间吗？ 的本地化字符串。
+        /// </summary>
+        public static string GiveupTipContent {
+            get {
+                return ResourceManager.GetString("GiveupTipContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 原因反馈 的本地化字符串。
+        /// </summary>
+        public static string GiveupTipInputCaption {
+            get {
+                return ResourceManager.GetString("GiveupTipInputCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 这次放弃的原因是？ 的本地化字符串。
+        /// </summary>
+        public static string GiveupTipInputContent {
+            get {
+                return ResourceManager.GetString("GiveupTipInputContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 番茄计划 的本地化字符串。
         /// </summary>
         public static string MainWindowTitle {
             get {
                 return ResourceManager.GetString("MainWindowTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 暂停确认 的本地化字符串。
+        /// </summary>
+        public static string PausePlantTipCaption {
+            get {
+                return ResourceManager.GetString("PausePlantTipCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 暂停的原因是什么？ 的本地化字符串。
+        /// </summary>
+        public static string PausePlantTipContent {
+            get {
+                return ResourceManager.GetString("PausePlantTipContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 继续加油 的本地化字符串。
+        /// </summary>
+        public static string PlantFinishTipCation {
+            get {
+                return ResourceManager.GetString("PlantFinishTipCation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 还有计划的番茄哟，是否继续？ 的本地化字符串。
+        /// </summary>
+        public static string PlantFinishTipContent {
+            get {
+                return ResourceManager.GetString("PlantFinishTipContent", resourceCulture);
             }
         }
         

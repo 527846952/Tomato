@@ -105,6 +105,7 @@ namespace Tomato
         public event Action<double> OnRestRateChange;
         public event Action<TomatoFruit> OnReapFruit;
         public event Action<TomatoPlant> OnFinish;
+        public event Action<TomatoPlant> OnGiveup;
 
         public TomatoPlant(TomatoSeed oriSeed)
         {
@@ -132,7 +133,7 @@ namespace Tomato
         private void GrowingTimeLoseSecond()
         {
             remainLifeSeconds = Math.Max(0, remainLifeSeconds - 1);
-            OnGrowingRateChange(GrowRate);
+            OnGrowingRateChange?.Invoke(GrowRate);
             if (remainLifeSeconds <= 0)
             {
                 state = TOMATO_PLANT_STATE.Reaped;
@@ -145,7 +146,7 @@ namespace Tomato
         private void RestTimeLoseSecond()
         {
             remainRestSeconds = Math.Max(0, remainRestSeconds - 1);
-            OnRestRateChange(1 - remainRestSeconds / (double)TomatoPlantRestSeconds);
+            OnRestRateChange?.Invoke(1 - remainRestSeconds / (double)TomatoPlantRestSeconds);
             if (remainRestSeconds <= 0)
             {
                 TomatoMgr.OnTimeLoseSecond -= TimeLoseSecond;
@@ -168,8 +169,8 @@ namespace Tomato
 
         public void Giveup(string giveupTip)
         {
-            if ((state != TOMATO_PLANT_STATE.Growing ||
-                state != TOMATO_PLANT_STATE.Pause) &&
+            if (state != TOMATO_PLANT_STATE.Growing &&
+                state != TOMATO_PLANT_STATE.Pause &&
                 state < TOMATO_PLANT_STATE.Reaped)
             {
                 throw new Exception("TomatoPlant giveup fail, state is " + state);
@@ -177,13 +178,14 @@ namespace Tomato
             if (state < TOMATO_PLANT_STATE.Reaped)
             {
                 state = TOMATO_PLANT_STATE.Giveup;
+                OnGiveup?.Invoke(this);
             }
             else
             {
                 state = TOMATO_PLANT_STATE.Finish;
+                OnFinish?.Invoke(this);
             }
-            OnFinish?.Invoke(this);
-
+            
             TomatoMgr.OnTimeLoseSecond -= TimeLoseSecond;
 
             if (string.IsNullOrEmpty(giveupTip))
@@ -200,11 +202,7 @@ namespace Tomato
                 throw new Exception("TomatoPlant pause fail, state is " + state);
             }
             state = TOMATO_PLANT_STATE.Pause;
-
-            if (string.IsNullOrEmpty(pauseTip))
-            {
-                throw new Exception("TomatoPlant pause unexpect, pauseTip is empty");
-            }
+            
             pasuseRecords.Add(pauseTip);
         }
 
