@@ -69,6 +69,10 @@
     </Compile>
     <Compile Include="TomatoSeed.cs" />
     <Compile Include="Win32.cs" />
+    <Page Include="lang\DefaultLanguage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="InputMessageBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

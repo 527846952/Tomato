@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="EditorCreateContentEmptyCaption" xml:space="preserve">
+    <value>要认真填写</value>
+  </data>
+  <data name="EditorCreateContentEmptyContent" xml:space="preserve">
+    <value>创建填写的标题和详情不能为空</value>
+  </data>
   <data name="GiveupTipCaption" xml:space="preserve">
     <value>放弃确认</value>
   </data>
@@ -131,6 +137,12 @@
   </data>
   <data name="MainWindowTitle" xml:space="preserve">
     <value>番茄计划</value>
+  </data>
+  <data name="MenuDeleteTipCaption" xml:space="preserve">
+    <value>删除确认</value>
+  </data>
+  <data name="MenuDeleteTipContent" xml:space="preserve">
+    <value>确定要删除这个计划吗？</value>
   </data>
   <data name="PausePlantTipCaption" xml:space="preserve">
     <value>暂停确认</value>

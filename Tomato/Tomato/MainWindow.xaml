@@ -6,31 +6,28 @@
         xmlns:local="clr-namespace:Tomato"
         mc:Ignorable="d"
         Title="番茄计划" Height="640" Width="800" ResizeMode="NoResize">
+
     <Canvas x:Name="rootCanvas" Margin="0">
         <TabControl x:Name="tabControl" Height="612" Canvas.Left="0" Canvas.Top="0" TabStripPlacement="Left" Width="795">
-            <TabItem Header="Goals" Height="190">
+            <TabItem Header="{DynamicResource Goals}" Height="190">
                 <Grid Background="White">
-                    <ListBox x:Name="goalsList" HorizontalAlignment="Left" VerticalAlignment="Top" Height="606" Width="275">
+                    <ListBox x:Name="goalsList" HorizontalAlignment="Left" VerticalAlignment="Top" Height="606" Width="275" SelectionChanged="goalsList_SelectionChanged">
                         <ListBox.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Name="MenuDeleteItem" Header="Delete" Click="MenuDeleteItem_Click"/>
-                                <MenuItem Name="MenuTodayPlanItem" Header="Today Plan" Click="MenuTodayPlanItem_Click"/>
+                                <MenuItem Name="MenuDeleteItem" Header="{DynamicResource GoalsMenuDelete}" Click="MenuDeleteItem_Click"/>
+                                <MenuItem Name="MenuTodayPlanItem" Header="{DynamicResource GoalMenuMoveToToday}" Click="MenuTodayPlanItem_Click"/>
                             </ContextMenu>
                         </ListBox.ContextMenu>
-                        <ListBoxItem Content="Goal 1"/>
-                        <ListBoxItem Content="Goal 2"/>
-                        <ListBoxItem Content="Goal 3"/>
                     </ListBox>
-                    <Button x:Name="showEditGoal" Content="Add" Margin="484,294,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="40" Height="20"/>
                     <Canvas x:Name="editGoal" Margin="280,0,0,0">
-                        <Label x:Name="labTitle" Content="Title" Canvas.Left="10" Canvas.Top="38"/>
-                        <TextBox x:Name="titleEdit" Height="22" Canvas.Left="84" TextWrapping="Wrap" Text="TextBox" Canvas.Top="42" Width="340" Background="#FFE4E4E4"/>
-                        <Label x:Name="labDetail" Content="Detail" Canvas.Left="10" Canvas.Top="89"/>
-                        <TextBox x:Name="detailEdit" Height="254" Canvas.Left="84" TextWrapping="Wrap" Text="TextBox" Canvas.Top="91" Width="340" Background="#FFE4E4E4"/>
-                        <Label x:Name="labCount" Content="Tomatos" Canvas.Left="10" Canvas.Top="374"/>
+                        <Label x:Name="labTitle" Content="{DynamicResource EditorTitle}" Canvas.Left="10" Canvas.Top="38"/>
+                        <TextBox x:Name="titleEdit" Height="22" Canvas.Left="84" TextWrapping="Wrap" Canvas.Top="42" Width="340" Background="#FFE4E4E4"/>
+                        <Label x:Name="labDetail" Content="{DynamicResource EditorContent}" Canvas.Left="10" Canvas.Top="89"/>
+                        <TextBox x:Name="detailEdit" Height="254" Canvas.Left="84" TextWrapping="Wrap" Canvas.Top="91" Width="340" Background="#FFE4E4E4"/>
+                        <Label x:Name="labCount" Content="{DynamicResource EditorPlanCount}" Canvas.Left="10" Canvas.Top="374"/>
                         <Slider x:Name="countEdit" Canvas.Left="84" Canvas.Top="380" Height="20" Width="276" Maximum="16" SmallChange="1" Value="1" Minimum="1" ValueChanged="countEdit_ValueChanged"/>
                         <Label x:Name="labTargetCount" Canvas.Left="384" Canvas.Top="374" Content="1"/>
-                        <Label x:Name="labPriority" Content="Priority" Canvas.Left="10" Canvas.Top="428"/>
+                        <Label x:Name="labPriority" Content="{DynamicResource EditorPriority}" Canvas.Left="10" Canvas.Top="428"/>
                         <ComboBox x:Name="priorityEdit" Canvas.Left="84" Canvas.Top="432" Width="142" SelectedIndex="3">
                             <ComboBoxItem Content="S"/>
                             <ComboBoxItem Content="A"/>
@@ -38,31 +35,27 @@
                             <ComboBoxItem Content="C"/>
                             <ComboBoxItem Content="D"/>
                         </ComboBox>
-                        <Button x:Name="addGoal" Content="Add Goal" Canvas.Left="211" Canvas.Top="508" Width="75" Click="addGoal_Click"/>
+                        <Button x:Name="updateGoal" Content="{DynamicResource EditorUpdateExist}" Canvas.Left="151" Canvas.Top="508" Width="75" Click="updateGoal_Click" IsEnabled="False"/>
+                        <Button x:Name="addGoal" Content="{DynamicResource EditorCreateSeed}" Canvas.Left="285" Canvas.Top="508" Width="75" Click="addGoal_Click"/>
                     </Canvas>
                 </Grid>
             </TabItem>
-            <TabItem Header="Today" Height="190">
+            <TabItem Header="{DynamicResource Plans}" Height="190">
                 <Grid Background="White">
                     <ListBox x:Name="planList" HorizontalAlignment="Left" VerticalAlignment="Top" Height="606" Width="275">
                         <ListBox.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Header="Giveup"/>
-                                <MenuItem Header="Leave Today"/>
+                                <MenuItem Name="MenuGowItem" Header="{DynamicResource PlansMenuGow}" Click="MenuGowItem_Click"/>
+                                <MenuItem Name="MenuGiveupItem" Header="{DynamicResource PlansMenuGiveup}" Click="MenuGiveupItem_Click"/>
+                                <MenuItem Name="MenuLeaveTodayItem" Header="{DynamicResource PlansMenuMoveToGoals}" Click="MenuLeaveTodayItem_Click"/>
                             </ContextMenu>
                         </ListBox.ContextMenu>
-                        <ListBoxItem Content="Plan 1"/>
-                        <ListBoxItem Content="Plan 2"/>
-                        <ListBoxItem Content="Plan 3"/>
                     </ListBox>
                 </Grid>
             </TabItem>
-            <TabItem Header="Fruits" Margin="-2,-2,0,-2" Height="190">
+            <TabItem Header="{DynamicResource Fruits}" Margin="-2,-2,0,-2" Height="190">
                 <Grid Background="White">
                     <ListBox x:Name="fruitsList" HorizontalAlignment="Left" VerticalAlignment="Top" Height="606" Width="275">
-                        <ListBoxItem Content="Fruit 1"/>
-                        <ListBoxItem Content="Fruit 2"/>
-                        <ListBoxItem Content="Fruit 3"/>
                     </ListBox>
                 </Grid>
             </TabItem>

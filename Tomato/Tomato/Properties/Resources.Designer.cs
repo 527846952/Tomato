@@ -61,6 +61,24 @@ namespace Tomato.Properties {
         }
         
         /// <summary>
+        ///   查找类似 要认真填写 的本地化字符串。
+        /// </summary>
+        public static string EditorCreateContentEmptyCaption {
+            get {
+                return ResourceManager.GetString("EditorCreateContentEmptyCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 创建填写的标题和详情不能为空 的本地化字符串。
+        /// </summary>
+        public static string EditorCreateContentEmptyContent {
+            get {
+                return ResourceManager.GetString("EditorCreateContentEmptyContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 放弃确认 的本地化字符串。
         /// </summary>
         public static string GiveupTipCaption {
@@ -102,6 +120,24 @@ namespace Tomato.Properties {
         public static string MainWindowTitle {
             get {
                 return ResourceManager.GetString("MainWindowTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 删除确认 的本地化字符串。
+        /// </summary>
+        public static string MenuDeleteTipCaption {
+            get {
+                return ResourceManager.GetString("MenuDeleteTipCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 确定要删除这个计划吗？ 的本地化字符串。
+        /// </summary>
+        public static string MenuDeleteTipContent {
+            get {
+                return ResourceManager.GetString("MenuDeleteTipContent", resourceCulture);
             }
         }
         
