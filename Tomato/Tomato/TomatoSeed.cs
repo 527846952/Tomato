@@ -161,6 +161,11 @@ namespace Tomato
             createTime = DateTime.Now;
         }
 
+        public override string ToString()
+        {
+            return string.Format("{0}:{1}", priority, title);
+        }
+
         private int GetMinPlantIdx()
         {
             for (int i = 0; i < allPlants.Count; i++)

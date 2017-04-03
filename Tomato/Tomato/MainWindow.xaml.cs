@@ -52,15 +52,15 @@ namespace Tomato
 
         private void addGoal_Click(object sender, RoutedEventArgs e)
         {
-            var plantWindow = new TomatoPlantWindow();
             var seed = new TomatoSeed();
             seed.Title = titleEdit.Text; ;
             seed.Detail = detailEdit.Text;
             seed.ExpectTomatoCount = (int)countEdit.Value;
             seed.Priority = (TOMATO_PRI)priorityEdit.SelectedIndex;
-            seed.Sow();
-            plantWindow.SetTomatoPlant(seed.AllPlants[seed.CurGrowPlantIdx]);
-            plantWindow.Show();
+
+            ListBoxItem boxItem = new ListBoxItem();
+            boxItem.Content = seed;
+            goalsList.Items.Add(boxItem);
         }
 
         private void countEdit_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -70,6 +70,28 @@ namespace Tomato
                 return;
             }
             labTargetCount.Content = (int)countEdit.Value;
+        }
+
+        private void MenuDeleteItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (goalsList.SelectedIndex < 0)
+            {
+                return;
+            }
+            goalsList.Items.RemoveAt(goalsList.SelectedIndex);
+        }
+
+        private void MenuTodayPlanItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (goalsList.SelectedIndex < 0)
+            {
+                return;
+            }
+            var seed = goalsList.SelectedItem as TomatoSeed;
+            var plantWindow = new TomatoPlantWindow();
+            seed.Sow();
+            plantWindow.SetTomatoPlant(seed.AllPlants[seed.CurGrowPlantIdx]);
+            plantWindow.Show();
         }
     }
 }
